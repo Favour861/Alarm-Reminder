@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ALARM</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="alarm.css">
+</head>
+<script>
+	function alarmSound(){
+	alarmSound = new Audio();
+	alarmSound.src= "alarm_tone.mp3";
+	alarmSound.play();
+	alarmSound.loop=true;
+	}
+	function time(){
+		var current =new Date();
+		var h = current.getHours();
+		var m = current.getMinutes();
+		var s = current.getSeconds();
+		if (h<=9){
+			h="0"+h;
+		}
+		if (m<=9){
+			m="0"+m;
+		}
+		if (s<=9){
+			s="0"+s;
+		}
+		document.getElementById('current_time').innerHTML=h + ":" + m + ":" + s;
+		setTimeout(time,1000);
+		alarm();
+	}
+	function alarmpage(){
+		document.getElementById('link_group').style.display='none';
+		document.getElementById('alarm_input').style.visibility='visible';
+	}
+	function reminderpage(){
+		document.getElementById('link_group').style.display='none';
+		document.getElementById('alarm_input').style.visibility='visible';
+		document.getElementById('remind').style.display='inline';
+
+	}
+	function alarm(){
+		var current =new Date();
+		var h = current.getHours();
+		var m = current.getMinutes();
+		var s = current.getSeconds();
+		if (hr.value==h && mn.value==m && sc.value==s){
+			alarmSound();
+			document.getElementById('stop').innerHTML='STOP';
+			 
+		}
+
+	}
+	playing="";
+	function alarmset(){
+		if(hr.value!==""||mn.value!==""||sc.value!==""){
+		alarm();
+		document.getElementById('input').style.display='none';
+		document.getElementById('set').style.display='none';
+		document.getElementById('loader').style.display='block';
+		document.getElementById('snooze').innerHTML='SNOOZE';
+		
+		}
+	}
+	// function end(){
+	// 	var math=Math.random()*50000000;
+	// 	document.getElementById('mathque').innerHTML=math.toString();
+	// }
+	function stopalarm(){
+		var math=Math.random()*50000000;
+		document.getElementById('mathque').innerHTML=math;
+		document.getElementById('mathans').style.visibility="visible";
+	}
+	function end(){
+		if (mathans.value==mathque.innerHTML){
+		alarmSound.pause();
+		document.getElementById('test_area').innerHTML="";
+		document.getElementById('set').style.display="none";	
+		document.getElementById('stop').style.display="none";
+		document.getElementById('snooze').style.display="none";
+		document.getElementById('refresh').style.display="inline-block";
+	}
+	}
+
+</script>
+<body onload="time()">
+	<div id="alarm">
+		<p style="color: white; ">Powered by Favour</p>
+		<div id="head"><h1 align="center">ALARM SYSTEM</h1></div>
+		<div id="current_time"></div>
+		<div id="link_group">
+			<div id="alarm_link" onclick="alarmpage()"><img src="linkimg.png" style="transform: scale(0.5);" id="img1"><br><span id="alarm_name">ALARM</span></div>
+			<a href="reminder.html"><div id="reminder_link"><img src="linkimg.png" style="transform: scale(0.5);" id="img1"><br><span id="reminder_name">REMINDER</span></div></a>
+			<!-- <div id="reminder_link"></div> -->
+		</div>
+
+		<div id="alarm_input">
+			<table align="center" id="input">
+				<tr>
+					<td id="Hour"><input placeholder="HR" class="input" type="text" id="hr">&nbsp;<h2 style="display: inline; color: white">:</h2></td>
+					<td id="Minute"><input placeholder="MN" class="input" type="text" id="mn">&nbsp;<h2 style="display: inline; color: white">:</h2></td>
+					<td id="Seconds"><input placeholder="SC" class="input" type="text" id="sc"></td>
+				</tr>
+			</table>
+					<button class="start" style="margin-top: 0" id="refresh"><a href="alarm.html" style="font-size: 15pt">REFRESH</a></button> 
+					<div id="loader" align="center"></div>
+				
+					<button class="start" id="stop" onclick="stopalarm()" align="center"></button>
+					<button class="start" style="display: none;" id="refresh"><a href="alarm.html">REFRESH</a></button>
+					<button class="start" id="set" onclick="alarmset()" align="center">SET</button>
+					<button class="start" id="snooze" onclick="snooze()" align="center"></button>
+			</div>
+					
+					<div id="test_area">
+						<div id="mathque" style="user-select: none;"></div>
+						<input class="input" style="width: 80%; height: 20px; visibility: hidden;" id="mathans" placeholder="Type the value above" onkeyup="end()">
+					</div>
+	</div>
+	
+</body>
+</html>
